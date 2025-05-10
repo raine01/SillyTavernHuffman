@@ -1,12 +1,12 @@
 {
-    "display_name": "Template Extension",
+    "display_name": "SillyTavernHuffman",
     "loading_order": 1,
     "requires": [],
     "optional": [],
     "js": "dist/index.js",
     "css": "",
-    "author": "Cohee1207",
+    "author": "raine01",
     "version": "1.0.0",
-    "homePage": "https://github.com/Cohee1207/Extension-ReactTemplate",
+    "homePage": "https://github.com/raine01/SillyTavernHuffman",
     "auto_update": true
 }

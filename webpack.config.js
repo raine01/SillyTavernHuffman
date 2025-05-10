@@ -29,4 +29,12 @@ module.exports = {
             extractComments: false,
         })],
     },
+    resolve: {
+        fallback: {
+            "fs": false, // 或如果需要，则为合适的 fs polyfill。
+            "http": require.resolve("stream-http"),
+            "https": require.resolve("https-browserify"),
+            "url": require.resolve("url/")
+        }
+    }
 };
