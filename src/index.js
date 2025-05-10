@@ -49,7 +49,7 @@ async function translateIncomingMessageReasoning(messageId) {
     const translation = "喵喵喵1";
     message.extra.reasoning_display_text = translation;
 
-    //updateReasoningUI(Number(messageId));
+    updateReasoningUI(Number(messageId));
     return true;
 }
 
