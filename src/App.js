@@ -1,15 +1,56 @@
 /* global SillyTavern */
 
 function App() {
-    function handleClick() {
-        alert(`Hello, ${SillyTavern.getContext().name1}!`);
+
+    function translate(text) {
+
+        const charMap = {};
+        const encodedArray = [];
+        let index = 1;
+
+        for (const char of text) {
+            if (/[\u4e00-\u9fa5]/.test(char)) {
+                if (!charMap[char]) {
+                    charMap[char] = index++;
+                }
+                encodedArray.push(charMap[char]);
+            } else {
+                encodedArray.push(char);
+            }
+        }
+
+        const encodedString = encodedArray.join(',');
+
+        const conversionTable = Object.entries(charMap)
+            .map(([char, num]) => `${num}：${char}`)
+            .join('；');
+
+        return `${encodedString}\n转换表\n${conversionTable}`;
     }
+
+    async function translateOutgoingMessage(messageId) {
+        const context = SillyTavern.getContext();
+        const message = context.chat[messageId];
+
+        if (typeof message.extra !== 'object') {
+            message.extra = {};
+        }
+
+        const originalText = message.mes;
+        message.extra.display_text = originalText;
+        message.mes = translate(originalText);
+        context.updateMessageBlock(messageId, message);
+
+        console.log('translateOutgoingMessage', messageId);
+    }
+
+    SillyTavern.getContext().eventSource.makeFirst(SillyTavern.getContext().eventTypes.USER_MESSAGE_RENDERED, translateOutgoingMessage);
 
     return (
         <div className="huffman_settings">
             <div className="inline-drawer">
                 <div className="inline-drawer-toggle inline-drawer-header">
-                    <b data-i18n="ext_huffman_title">Huffman插件</b>
+                    <b>Huffman插件</b>
                     <div className="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
                 </div>
                 <div className="inline-drawer-content">
