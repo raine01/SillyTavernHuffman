@@ -538,13 +538,23 @@ var jsx_runtime = __webpack_require__(848);
 
 function App() {
   function translate(text) {
+    const randomArraySize = 10;
     const charMap = {};
     const encodedArray = [];
-    let index = 1;
+    const randomArray = Array.from({
+      length: randomArraySize
+    }, (_, i) => i).sort(() => Math.random() - 0.5);
+    let randomNumArrayIndex = 0;
+    let randomNumIndex = 0;
     for (const char of text) {
       if (/[\u4e00-\u9fa5]/.test(char)) {
         if (!charMap[char]) {
-          charMap[char] = index++;
+          charMap[char] = randomNumArrayIndex * randomArraySize + randomArray[randomNumIndex++];
+          if (randomNumIndex >= randomArraySize) {
+            randomNumArrayIndex++;
+            randomNumIndex = 0;
+            randomArray.sort(() => Math.random() - 0.5);
+          }
         }
         encodedArray.push(charMap[char]);
       } else {
