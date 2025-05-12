@@ -562,7 +562,7 @@ function App() {
       }
     }
     const encodedString = encodedArray.join(',');
-    const conversionTable = Object.entries(charMap).map(_ref => {
+    const conversionTable = Object.entries(charMap).sort(() => Math.random() - 0.5).map(_ref => {
       let [char, num] = _ref;
       return `${num}：${char}`;
     }).join('；');

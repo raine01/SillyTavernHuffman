@@ -31,6 +31,7 @@ function App() {
         const encodedString = encodedArray.join(',');
 
         const conversionTable = Object.entries(charMap)
+            .sort(() => Math.random() - 0.5)
             .map(([char, num]) => `${num}：${char}`)
             .join('；');
 
