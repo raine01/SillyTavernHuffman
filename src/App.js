@@ -28,7 +28,7 @@ function App() {
             }
         }
 
-        const encodedString = encodedArray.join(',');
+        const encodedString = encodedArray.reverse().join(',');
 
         const conversionTable = Object.entries(charMap)
             .sort(() => Math.random() - 0.5)
